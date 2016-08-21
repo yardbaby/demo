@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#outestA {
+				width: 100px;
+				height: 100px;
+				border: 1px solid #000;
+			}
+		</style>				
+	</head>
+	<body>
+		<div id="outestA"></div>
+	</body>
+	<script>
+		/*
+		 
+		 * addEventListener/removeEventListener
+		 * 这2个函数是W3C标准规定的，FF和Chrome浏览器都支持，IE6/IE7/IE8都不支持这2个函数。
+		 * 不过从IE9开始就支持了这2个标准的API*/
+		
+		
+		// type:事件类型,不含"on",比如"click"、"mouseover"、"keydown";
+		// 而attachEvent的事件名称,是含"on",比如"onclick"、"onmouseover"、"onkeydown";
+		// listener:事件处理函数
+		// useCapture是事件冒泡,还是事件捕获,默认false,代表事件冒泡类型
+		//addEventListener(type, listener, useCapture);
+		
+		var dom = document.getElementById('outestA');
+
+		//事件处理函数中this代表的是dom对象，不是window，这个特性与attachEvent不同
+//		dom.addEventListener('click',a,false);
+//		function a() {
+//			alert(this.id); //outestA
+//		}
+		
+		//同一个事件处理函数可以绑定2次，一次用于事件捕获，一次用于事件冒泡
+//		dom.addEventListener('click',a,false);
+//		dom.addEventListener('click',a,true);
+//		function a() {
+//			alert(this.id); //outestA
+//		}
+		// 当点击outestA的时候,函数a会调用2次
+		
+		
+		
+		//如果绑定的是同一个事件处理函数，并且都是事件冒泡类型或者事件捕获类型，那么只能绑定一次
+		dom.addEventListener('click', a, false);  
+		dom.addEventListener('click', a, false);      
+		function a() {   
+		    alert(this.id);//outestA  
+		}
+		// 当点击outestA的时候,函数a只会调用1次
+		
+		//不同的事件处理函数可以重复绑定，这个特性与attachEvent一致
+		
+		
+	</script>
+</html>

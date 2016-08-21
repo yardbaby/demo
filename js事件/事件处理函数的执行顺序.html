@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#outA {
+				width: 400px;
+				height: 400px;
+				background-color: #CDC9C9;
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="outA"></div>
+	</body>
+	<script>
+		window.onload = function() {
+			var outA = document.getElementById("outA");  
+			outA.addEventListener('click',function(){alert(1);},false);
+			outA.addEventListener('click',function(){alert(2);},true);
+			outA.addEventListener('click',function(){alert(3);},true);
+			outA.addEventListener('click',function(){alert(4);},true);
+		}
+	</script>
+</html>

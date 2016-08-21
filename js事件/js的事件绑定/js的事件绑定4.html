@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#outestA {
+				width: 100px;
+				height: 100px;
+				border: 1px solid #000;
+			}
+		</style>				
+	</head>
+	<body>
+		<div id="outestA"></div>
+	</body>
+	<script>
+		/*
+		 * IE下使用attachEvent/detachEvent函数进行事件绑定和取消
+		 * attachEvent/detachEvent兼容性不好，IE6~IE11都支持该函数，但是FF和Chrome浏览器都不支持该方法。
+		 * 而且attachEvent/detachEvent不是W3C标准的做法，所以不推荐使用。在IE浏览器下，
+		 * attachEvent有以下特点：*/
+		
+		//事件处理函数中this代表的是window对象，不是dom对象
+		var dom = document.getElementById('outestA');
+//		dom.attachEvent('onclick',a);
+//		function a() {
+//			alert(this.id); //undefined
+//		}
+
+		//同一个事件处理函数只能绑定一次
+//		dom.attachEvent('onclick',a);
+//		dom.attachEvent('onclick',a);
+//		function a() {
+//			alert(this.id);
+//		}
+		//虽然使用attachEvent绑定了2次，但是函数a只会调用一次
+		
+		
+		//不同的函数对象，可以重复绑定，不会覆盖
+		dom.attachEvent('onclick',function() {
+			alert(1);
+		});
+		dom.attachEvent('onclick',function() {
+			alert(1);
+		});
+		// 当outestA的click事件发生时,会弹出2个对话框
+		
+		/*
+		 注意：匿名函数和匿名函数是互相不相同的，即使代码完全一样。所以如果我们想用detachEvent取消attachEvent绑定的事件处理函数，
+		 那么绑定事件的时候不能使用匿名函数，必须要讲事件处理函数单独写成一个函数，否则无法取消*/
+		
+		
+	</script>
+</html>

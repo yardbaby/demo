@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="outA" style="width:400px; height:400px; background:#CDC9C9;position:relative;">
+			<div id="outB" style="height:200; background:#0000ff;top:100px;position:relative;">
+				<div id="outC" style="height:100px; background:#FFB90F;top:50px;position:relative;"></div> 
+			</div>
+		</div>
+	</body>
+	<script>
+		/*
+		 
+		 * 默认情况下，多个事件处理函数会按照DOM事件流模型中的顺序执行。
+		 * 如果子元素上发生某个事件，不需要执行父元素上注册的事件处理函数，那么我们可以停止捕获和冒泡,避免没有意义的函数调用。
+		 * 前面提到的5种事件绑定方式，都可以实现阻止事件的传播。
+		 * 由于第5种方式是最推荐的做法,所以我们基于第5种方式，看看如何阻止事件的传播行为。IE8以及以前的版本可以通过
+		 * window.event.cancelBubble=true阻止事件的继续传播;
+		 * IE9+/FF/Chrome通过event.stopPropagation()阻止事件的继续传播*/
+		
+	window.onload = function(){
+		var outA = document.getElementById("outA");  
+		var outB = document.getElementById("outB");  
+		var outC = document.getElementById("outC");  
+		
+		// 目标
+		outC.addEventListener('click',function(event){
+			alert("target");
+			event.stopPropagation();
+		},false);
+ 
+		// 事件冒泡
+		outA.addEventListener('click',function(){alert("bubble");},false);
+ 
+		// 事件捕获
+		outA.addEventListener('click',function(){alert("capture");},true);		
+		
+	};
+	
+	/*
+	 
+	 * 当点击outC的时候，之后打印出capture–>target，不会打印出bubble。
+	 * 因为当事件传播到outC上的处理函数时，通过stopPropagation阻止了事件的继续传播，所以不会继续传播到冒泡阶段。*/
+		
+	</script>
+</html>

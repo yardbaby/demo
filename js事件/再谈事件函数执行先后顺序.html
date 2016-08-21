@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="outA" style="width:400px; height:400px; background:#CDC9C9;position:relative;">
+			<div id="outB" style="height:200; background:#0000ff;top:100px;position:relative;">
+				<div id="outC" style="height:100px; background:#FFB90F;top:50px;position:relative;"></div> 
+			</div>
+		</div>
+	</body>
+	<script>
+		/*
+		 
+		 * 在DOM事件流中提到过：
+		 * 目标(自身触发事件，是冒泡还是捕获无所谓)
+		*/
+//		outC.addEventListener('click',function() {
+//			alert("target");
+//		},true);
+		/*
+		 
+		 * 我们在outC上触发onclick事件(这个是目标对象),如果我们在outC上同时绑定捕获阶段/冒泡阶段事件处理函数会怎么样呢？*/
+		
+		window.onload = function() {
+			var outA = document.getElementById('outA');
+			var outB = document.getElementById('outB');
+			var outC = document.getElementById('outC');
+			
+			//目标（自身触发事件，是冒泡还是捕获无所谓）
+//			outC.addEventListener('click',function() {
+//				alert("target2");
+//			},true);
+//			
+//			outC.addEventListener('click',function() {
+//				alert("target1");
+//			},true);
+
+			/*
+		 
+		 * 点击outC的时候，打印顺序是:capture1–>capture2–>target2–>target1–>bubble2–>bubble1。
+		 * 由于outC是我们触发事件的目标对象，在outC上注册的事件处理函数，属于DOM事件流中的目标阶段。
+		 * 目标阶段函数的执行顺序：先注册的先执行，后注册的后执行。
+		 * 这就是上面我们说的，在目标对象上绑定的函数是采用捕获，还是采用冒泡，都没有什么关系，
+		 * 因为冒泡和捕获只是对父元素上的函数执行顺序有影响，对自己没有什么影响。
+		 * 如果不信，可以将下面的代码放进去验证。*/
+		
+			outC.addEventListener('click',function(){alert("target1");},false);
+			outC.addEventListener('click',function(){alert("target2");},true);
+			outC.addEventListener('click',function(){alert("target3");},true);
+			outC.addEventListener('click',function(){alert("target4");},false);
+			
+			
+			
+			//事件冒泡
+			outA.addEventListener('click',function() {
+				alert("bubble1");
+			},false);
+			
+			outB.addEventListener('click',function() {
+				alert("bubble2");
+			},false);
+			
+			
+			//事件捕获
+			outA.addEventListener('click',function() {
+				alert("capture1");
+			},true);
+			
+			outB.addEventListener('click',function() {
+				alert("capture2");
+			},true);
+		};
+		
+		
+		/*
+		 
+		 * 至此我们可以给出事件函数执行顺序的结论了：
+		 * 捕获阶段的处理函数最先执行，其次是目标阶段的处理函数，最后是冒泡阶段的处理函数。
+		 * 目标阶段的处理函数，先注册的先执行，后注册的后执行。*/
+	</script>
+</html>

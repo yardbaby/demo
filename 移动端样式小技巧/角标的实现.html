@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			/*.script {
+			    width: 0;
+			    height: 0;        //控制宽高为0，用border宽度撑出一个三角形
+			    border-right: 10px solid transparent;
+			    border-top: 15px solid #c59c53;
+			   }*/
+			  
+			  /*我看到的第一种写法是把三角形直接拼在前边的文案后边，当然这在iphone上是没有问题的。
+			   * 但在部分安卓机型上却会有1像素的间隙，*/
+			  
+			  /*原因可能是定位在各安卓手机上会有不同的效果。。好像大家都是猴子，长的却都不一样。*/
+			 
+			 
+			.rongqi {/*容器*/
+			    height: 15px;
+			    overflow: hidden;/*设置超出隐藏*/
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			}
+			.wenan{//文案
+			    float: left;
+			    position: relative;    /*设置相对定位*/
+			    z-index: 3;            /*设置层级不被三角形挡住*/
+			    height: 15px;
+			    padding-left: 4px;
+			    line-height: 16px;
+			    color: #fff;
+			    font-size: 10px;
+			}
+			.script {
+			    width: 0;
+			    height: 0;
+			    border-right: 20px solid transparent;
+			    border-top: 30px solid #c59c53;    /*这里的30px实际上远远超出容器的高度*/
+			    float: right;                      /*就是为了高度超出被挡住做出梯形的效果，兼容各种机型*/
+			    margin-left: -9px;
+			}
+			 
+		</style>
+	</head>
+	<body>
+		<p class="rongqi">
+		    <span class="wenan">跟团游</span>
+		    <span class="script"></span>
+		</p>
+	</body>
+</html>

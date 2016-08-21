@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#outestA {
+				width: 100px;
+				height: 100px;
+				border: 1px solid #000;
+			}
+		</style>
+	</head>
+	<body>
+		<!--注意：事件处理函数中的this代表的是window对象，所以我们在onclick属性值中，通过this将dom对象作为参数传递-->
+		<div id="outestA" onclick="return buttonHandler(this);"></div>
+	</body>
+	<script>
+		function buttonHandler(thisDom) {
+			alert(this.id);  //undefined
+			alert(thisDom.id); //outestA
+			return false;
+		}
+	</script>
+</html>
